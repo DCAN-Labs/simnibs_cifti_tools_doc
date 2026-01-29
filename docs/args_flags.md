@@ -43,15 +43,46 @@ This guide is organized into a full arguments table as well as sections that bre
 
 ### Required Arguments
 
-Input and Output, native paths
+This section contains the minimum required arguments necessary to run the tool with default settings for all other configurations.
+
+* --SID
+* --VISIT
+* --P_SCT_REPO
+* --brain_target
+* --P_L_mdthk_native
+* --P_R_mdthk_native
+* --P_L_pial_native
+* --P_R_pial_native
+* --P_L_white_native
+* --P_R_white_native
+* --path_L_inflated
+* --path_R_inflated
+* --P_T1w
+* --P_T2w
+* --P_F_dlabel
+* --P_A_dlabel
+* --P_A_dlabel_2009
 
 ### Targeting Options
 
-Brain regions, coordinates, or networks.
+The below arguments allow for customization of brain targeting.
+
+* --brain_target
+  * all
+  * dlpfc
+  * 'A space separated list of desired networks enclosed in a parenthesis'
+    * "Salience"
+* --brain_target_2
+  * An additional brain network to simulate.
+* --find_the_best_by
+* --hemisphere_lobe_mask (not currently in use for coil_flag_stable branch)
 
 ### Hardware Configuration
 
 Coil types and such
+
+* --coil_name
+* --threshold
 
 ## Available TMS Coils
 
