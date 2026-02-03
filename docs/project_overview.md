@@ -10,8 +10,21 @@ The toolbox is developed according to the [NMIND initiative](https://www.nmind.o
 
 ## Pipeline Description
 
-### Stage 1: Setup
+This pipeline operates in 3 main stages. These stages are all linked together through slurm commands and are tied as dependencies to run in sequential order.
 
-### Stage 2: Simulations
+### Stage 1: FEM Generation
+
+In this stage of the pipeline a Finite Element Model (FEM) gets generated based on user provided T1, and T2 MR images. The FEM generation is performed through [headreco](https://simnibs.github.io/simnibs/build/html/documentation/command_line/headreco.html) since we utilize a Simnibs 3 container to do so. This process takes roughly an hour and a half.
+
+### Stage 2: Simulation Generation
+
+Based on the determined candidate coordinates list, simulations are performed in parallel through slurm batch jobs utilizing the parallel module split into groups of 3 so as to minimize resource requests and optimize slurm priority queue. This process varies in length of time from 1 hour to 15 hours depending on the amount of coordinates being simulated as well as the priority given to the submitted simulations by your slurm submitter.
 
 ### Stage 3: Optimal Targeting
+
+After all of the potential optimal targets have been simulated a Matlab script determines the optimal targets to stimulate for each network inside of the user provided specified regions of interest. By default the top 3 targets are provided per functional brain network. This process takes between 10 minutes and 20 hours depending on the amount of simulations that were run during stage 2 of this pipeline.
+
+## Notes
+
+For more information regarding setup see [Installation](./Installation.md).
+For more information regarding potential settings see [Users Guide](./args_flags.md).
