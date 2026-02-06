@@ -109,30 +109,40 @@ For instance if `--SID sub-fake01 --VISIT ses-fake01 --work_location /full_path/
 
 ```markdown
 ├── /home/sub-fake01_OTaS  
+    ├── intermediaries
+        ├── dlabel_islands
+        └── percent_preserved_Efield_within_network
     ├── optimal_targets
-        └── Salience        
-            └── Optimal_target_1_gy_##
-                ├── coord_x_y_z
-                   └── derivatives
-                       └── Atlas
-                       └── Native                   
-                   ├── Efield
-                       └── Cifti
-                           └── Atlas
-                           └── Native 
-                       ├── Surface
-                           └── Atlas
-                           └── Native                   
-                       └── Volume
-                           └── Atlas
-                           └── Native                  
-                   ├── sim
-                       └── fsavg_overlays
-                       ├── mni_volumes                
-                       ├── subject_overlays            
-                       └── subject_volumes              
-                   └── opt                 
-                └── FEM
+        └── Cingulo-Opercular        
+            ├── Optimal_target_1_gy_##
+            ├── Optimal_target_2_gy_##
+            ├── Optimal_target_3_gy_##
+            ├── sub-fake01_Cingulo-Opercular_net
+            └── sub-fake01_L_dlpfc
+        └── Ventral_Attention        
+            ├── Optimal_target_1_gy_##
+                └── coord_native.csv
+                └── opt_coil_position_brainsight.txt
+                └── opt_matrix.txt
+                └── optimal_target_1_dscalar.png
+                └── sub-fake01_ses-fake01_Efield_cifti_native.dscalar.nii
+            ├── Optimal_target_2_gy_##
+            ├── Optimal_target_3_gy_##
+            ├── sub-fake01_Ventral_Attention_net
+            ├── sub-fake01_L_dlpfc
+            └── optimal_target_1_dscalar.png
+            └── optimal_target_1_dscalar.scene
+            └── optimal_target_1_dscalar.spec
+            └── optimal_target_2_dscalar.png
+            └── optimal_target_2_dscalar.scene
+            └── optimal_target_2_dscalar.spec
+            └── optimal_target_3_dscalar.png
+            └── optimal_target_3_dscalar.scene
+            └── optimal_target_3_dscalar.spec            
+            └── sub-fake01_L_dlpfc_prctile_99_5_best_gy.csv
+            └── sub-fake01_Ventral_Attention_L_dlpfc_prctile_99_5_best_gy.csv
+            └── sub-fake01_Ventral_Attention_Ventral_Attention_net_prctile_99_5_performance.csv
+            └── sub-fake01_Ventral_Attention_Ventral_Attention_net_prctile_99_5_best.csv
 ```
 
 Short description
