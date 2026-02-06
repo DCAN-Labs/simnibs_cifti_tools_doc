@@ -9,11 +9,27 @@ The mandatory input files include a T1, T2, inflated, the Native 32k resolution 
 
 ## Required Arguments
 
-In order for this tool to run paths to each of the required input files need to be provided as shown in the below table.
+In order for this tool to run each of the required arguments need to be supplied. These are shown in the below tables.
+These arguments need to be supplied after each other and after pointing to the main script. For example
+```bash
+path_to_sct_repo/preprocessing/settings_file_reader.sh --P_T1w full_path/T1w.nii.gz --brain_target dlpfc ...
+```
 
-### Input Arguments
+### Optimization Settings
+
+The mandatory optimization settings include the desired brain target, threshold, and where to store outputs. 
+
+| Category | Argument |
+| -------- | -------| 
+| Brain target | --brain_target |
+| Threshold | --threshold |
+
+### Neuroimaging File Paths
+
+Full paths to the following files are needed and should be supplied after the provided argument. 
 
 | File | Argument |
+| -------- | -------| 
 | T1 structural file | --P_T1w |
 | T2 structural file | --P_T2w |
 | Left_32k_midthickness.surf.gii | --P_L_mdthk_native |
@@ -28,49 +44,96 @@ In order for this tool to run paths to each of the required input files need to 
 | aparc_aseg_dlabel.nii | --P_A_dlabel |
 | aparc_aseg_2009_dlabel.nii | --P_A_dlabel_2009 |
 
-The required subject settings are subject and session identifier. 
 
-### Subject Arguments
+### Input and Output Locations
+
+For the scripts to find each other the full path to where the cloned Simnibs Cifti Tools Repo needs to be provided as well as where you would like the outputs to be stored. 
 
 | Category | Argument |
+| -------- | -------| 
+| Work directory | --work_location |
+| Full_path_SCT_repo | --P_SCT_REPO |
+
+### Subject Labels
+
+The provided subject labels are used to determine output locations as well as to ensure simulations are generated for unique subject id and visit id combinations.
+
+| Category | Argument |
+| -------- | -------| 
 | Subject ID | --SID |
 | Visit ID | --VISIT |
 
-For the scripts to find each other the full path to where the cloned Simnibs Cifti Tools Repo needs to be provided. 
 
-| Category | Argument |
-| Full_path_SCT_repo | --P_SCT_REPO |
-
-The mandatory configuration settings include your brain target, threshold, and where to store outputs
-
-| Category | Argument |
-| Brain target | --brain_target |
-| Threshold | --threshold |
-| Work directory | --work_location |
 
 ## Settings Script
 
-TODO this section next.
+It is possible to run this pipeline through the command line however it is recommended to create a settings file script for reproducability as well as troubleshooting. Please see the documentation section regarding [settings script setup](./args_flags.md#settings-script-setup) where all key settings get set through flags and arguments. 
+
+### Provided template settings script
+
+```bash
+path_to_sct_repo=/projects/standard/miran045/shared/code/internal/pipelines/simnibs_cifti_tools/wip_k_branch/simnibs_cifti_tools
+
+${path_to_sct_repo}/preprocessing/settings_file_reader.sh \
+--brain_target dlpfc \
+--threshold 99.5 \
+--P_F_dlabel /full_path/data/TemplateMatching/sub-fake01/sub-fake01_ses-fake01_task-restMENORDICrmnoisevols_space-fsLR_den-91k_desc-denoised_bold_spatially_interpolated_template_matched_Zscored_scanthresh3_recolored.dlabel.nii \
+--P_A_dlabel /full_path/input_data/sub-fake01/fake01.aparc.32k_fs_LR.dlabel.nii \
+--P_A_dlabel_2009 /full_path/input_data/sub-fake01/fake01.aparc.a2009s.32k_fs_LR.dlabel.nii \
+--P_T1w /full_path/data/ses-fake01/anat/sub-fake01_ses-fake01_run-01_T1w.nii.gz \
+--P_T2w /full_path/data/ses-fake01/anat/sub-fake01_ses-fake01_run-01_T2w.nii.gz \
+--P_L_mdthk_native /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_hemi-L_desc-msmsulc_midthickness.surf.gii \
+--P_R_mdthk_native /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_hemi-R_desc-msmsulc_midthickness.surf.gii \
+--P_L_pial_native /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_hemi-L_desc-msmsulc_pial.surf.gii \
+--P_R_pial_native /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_hemi-R_desc-msmsulc_pial.surf.gii \
+--P_L_white_native /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_hemi-L_desc-msmsulc_white.surf.gii \
+--P_R_white_native /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_hemi-R_desc-msmsulc_white.surf.gii \
+--path_L_inflated /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_L_desc-hcp_inflated.surf.gii \
+--path_R_inflated /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_R_desc-hcp_inflated.surf.gii \
+--P_SCT_REPO ${path_to_sct_repo} \
+--work_location /full_path/desired_work_location/sub-fake01 \
+--SID sub-fake01 \
+--VISIT ses-fake01 \
+```
 
 ## Running the Pipeline
 
+To run the pipeline simply execute your settings script. 
+This can be done via `bash settings_file.sh` if you saved the script as `settings_file.sh`.
+
 ## Expected Outputs
+
+Once a run is completed, all the files will be saved in the folder you defined as output folder with the addition of your defined subjectID and visitID. 
+
+For instance if `--SID sub-fake01 --VISIT ses-fake01 --work_location /full_path/desired_work_location/sub-fake01` was provided the output folder for the optimal targets would be `/full_path/desired_work_location/sub-fake01/sub-fake01_OTaS`). This folder will contain the following subfolders:
+
+```markdown
+├── /home/sub-fake01_OTaS  
+    ├── optimal_targets
+        └── Salience        
+            └── Optimal_target_1_gy_##
+                ├── coord_x_y_z
+                   └── derivatives
+                       └── Atlas
+                       └── Native                   
+                   ├── Efield
+                       └── Cifti
+                           └── Atlas
+                           └── Native 
+                       ├── Surface
+                           └── Atlas
+                           └── Native                   
+                       └── Volume
+                           └── Atlas
+                           └── Native                  
+                   ├── sim
+                       └── fsavg_overlays
+                       ├── mni_volumes                
+                       ├── subject_overlays            
+                       └── subject_volumes              
+                   └── opt                 
+                └── FEM
+```
 
 Short description
 
-### Taken from another section and being stored here 
-1. There is a current working version that was cloned from the [Github repository](https://github.com/DCAN-Labs/simnibs_cifti_tools) located at: `/projects/standard/miran045/shared/code/internal/pipelines/simnibs_cifti_tools/production_branch/simnibs_cifti_tools`
-2. This installation relies on a containerized Simnibs version 3 existing at `/projects/standard/faird/shared/code/internal/pipelines/container_simnibs/sing_test_simnibs_alone_debian.sif` plus the existing matlab installation version\
-3. Ensure you know the full path to the left and right hemisphere surfaces in **32k native space resolution** for the following surfaces for your desired subject:
-    1. Midthickness
-    2. Pial
-    3. White
-
-<!-- -->
-
-4. Ensure you have the full paths to the T1w & T2w of the desired subject in native resolution.
-5. Have available the full paths to the functional dlabel file you would like to use as well as the subjects **aparc aseg dlabel files**.
-6. Make your own subject specific settings file script following the example seen at [Sample settings file](./basic_example/default_settings_file.sh)
-7. For an example on using the code for the Efield Generator, follow the instructions at [Running an example](https://simnibs-cifti-tools-rtd2.readthedocs.io/en/latest/Efield_generator/#running-an-example)
-
-*To resample higher resolution surfaces down to 32k resolution see [FAQ](https://simnibs-cifti-tools-rtd2.readthedocs.io/en/latest/FAQ/)* *To generate subject specific aparc aseg dlabel files see [FAQ](https://simnibs-cifti-tools-rtd2.readthedocs.io/en/latest/FAQ/)*
