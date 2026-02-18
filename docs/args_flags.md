@@ -13,7 +13,16 @@ This guide is organized into a full arguments table as well as sections that bre
 | `--OUTPUT_FOLDER` | Root Output directory        |
 | `--P_SCT_REPO` | Path to where Simnibs Cifti Tools repository is cloned.      |
 | `--brain_target`       | Specify how you would like optimal targeting to be performed.                    |
-| Available options:     |   *all, dlpfc, {Sal}, any combination of functional brain networks space separated*                       |
+| Available options:     |   *all, dlpfc, Salience, any combination of functional brain networks as a comma separated*                       |
+| `--user_provided_table`       | Specify a full path to the a csv table that included index and another column to sort as inclusion/exclusion.          |
+| `--user_inclusion_column`       | Specify the column in the user_provided_table to filter by. The rows in that column need to either be 0/1 or exclude/include.      |
+| `--hemi_list`       | Specify the hemispheres of interest.                    |
+| Available options:     |   *L,R*                       |
+| `--lobe_list`       | Specify the lobes of interest.                    |
+| Available options:     |   *Cingulate, Frontal, Insula, Occipital, Parietal, Temporal, any combination of these as a comma separated list*                       |
+| `--hemisphere_lobe_mask`       | Specify how you would like optimal targeting to be performed.                    |
+| Available options:     |   *"L_Cingulate, L_Frontal, L_Insula, L_Occipital, L_Parietal, L_Temporal, R_Cingulate, R_Frontal, R_Insula, R_Occipital, R_Parietal, R_Temporal*  | 
+| Options continued:    |   *any combination of the above as a comma separated list*             |
 | `--threshold`       | Specify which threshold you would like to calculate the optimal targeting solution to be set to                  |
 | `--coil_name`       | Coil name (must match an existing SimNIBS coil).                                        |
 | `--P_L_mdthk_atlas`       | Specify a full path to the left midthickness surface file in atlas space                  |
@@ -39,6 +48,7 @@ This guide is organized into a full arguments table as well as sections that bre
 | `--find_the_best_by`       | Specify how to optimize the target.                   |
 | Available options:   |   *cummulative_energy_within_target, percent_target_covered, relative_energy_in_target, relative_energy_off_target, relative_area_in_target, relative_area_off_target*                       |
 | `--scan_islands`       | Enter a 1 if you'd like to use this additional processing step                   |
+| `--dry_run`       | Include this argument if you would like to see how your settings would run without actual execution or sending off jobs.            |
 | `--help`   |    Display the help message                       |
 
 ### Required Arguments
@@ -75,7 +85,7 @@ The below arguments allow for customization of brain targeting.
 * --brain_target_2
   * An additional brain network to simulate.
 * --find_the_best_by
-* --hemisphere_lobe_mask (not currently in use for coil_flag_stable branch)
+* --hemisphere_lobe_mask
 
 ### Hardware Configuration
 
