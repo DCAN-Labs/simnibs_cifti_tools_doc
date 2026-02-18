@@ -4,8 +4,7 @@ The goal of this section is to help users get started using this tool as quickly
 
 ## Required Input Files
 
-The mandatory input files include a T1, T2, inflated, the Native 32k resolution pial, white, and midthickness surfaces for both left and right hemispheres, and three Dlabel files. For guidance regarding imaging inputs see [Imaging files](./dependancies.md). 
-
+The mandatory input files include a T1, T2, inflated, the Native 32k resolution pial, white, and midthickness surfaces for both left and right hemispheres, and three Dlabel files. For guidance regarding imaging inputs see [Imaging files](./dependancies.md).
 
 ## Required Arguments
 
