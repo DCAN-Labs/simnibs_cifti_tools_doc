@@ -32,6 +32,7 @@ Auditory_net, Cingulo-Opercular_net, Default_Mode_net, Dorsal_Attention_net, Fro
 ### Neuroimaging File Paths
 
 Full paths to the following files are needed and should be supplied after the provided argument.
+**To note the aparc_aseg is not currently being used yet is still mandatory at this time. This file was used to define the left dlpfc using the subjects anatomical regions yet we found results were unstable. We now use an inclusion/exclusion table based on grayordinate index.**
 
 | File | Argument | Sample |
 | -------- | ------- | ------- |
