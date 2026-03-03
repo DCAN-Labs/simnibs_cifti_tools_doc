@@ -38,7 +38,7 @@ nav:
   - Installation: Installation.md 
   - Quickstart Guide: quickstart_guide.md
   - Users Guide: args_flags.md
-  - Outputs: Outputs.md
+  - Outputs: outputs.md
   - Modularized Tools: Utilities.md 
   - Tutorials: default_example.md
   - Troubleshooting: troubleshooting.md
