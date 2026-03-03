@@ -41,7 +41,7 @@ This guide is organized into a full arguments table as well as sections that bre
 | `--P_R_inflated`       | Specify a full path to a right inflated surface file in 32k resolution                  |  |
 | `--P_T1w`       | Specify a full path to the T1w file                  |  |
 | `--P_T2w`       | Specify a full path to the T2w file                  |  |
-| `--P_F_dlabel`       | Specify a full path to the functional dlabel file                  |  |
+| `--P_F_dlabel`       | Specify a full path to the functional dlabel file in 32k resolution.      |  |
 | `--P_A_dlabel`       | Specify a full path to the aparc aseg dlabel file in 32k resolution  |  |
 | `--P_A_dlabel_2009`       | Specify a full path to the aparc aseg a2009s dlabel file  |  |
 | `--brain_target_2`       | Specify which additional functional brain target you would like simulated.  |  |
@@ -55,7 +55,7 @@ This guide is organized into a full arguments table as well as sections that bre
 
 This section contains the **minimum** required arguments necessary to run the tool with default settings for all other arguments. This tool will fail to execute if any of these are missing.
 
-1. Session Metadata
+#### Session Metadata
 
 | Argument | Input | Description |
 | -------- | ------- | ------- |
@@ -64,7 +64,7 @@ This section contains the **minimum** required arguments necessary to run the to
 | `--P_SCT_REPO` | `Path` | Full path to the `Simnibs Cifti Tools` repository |
 | `--brain_target` | `String` | Primary functional target (e.q., `dlpfc`) |
 
-2. Native Surface Files (`.surf.gii`)
+#### Native Surface Files (`.surf.gii`)
 
 | Anatomical Surface | Left Hemisphere | Right Hemisphere |
 | -------- | ------- | ------- |
@@ -73,7 +73,7 @@ This section contains the **minimum** required arguments necessary to run the to
 | **White Matter** | `--P_L_white_native` | `--P_R_white_native` |
 | **Inflated (32k)** | `--path_L_inflated` | `--path_R_inflated` |
 
-3. Volumetric & Label Files
+#### Volumetric & Label Files
 
 | Argument | Type | Description |
 | -------- | ------- | ------- |
@@ -199,16 +199,15 @@ simnibs_cifti_tools/preprocessing/settings_file_reader.sh \
 
 This process continues ensuring you add a `\` symbol a space after the prior argument pairing then starting the next argument on a new line until you have completed adding all of the required arguments and updated the targeting options for the specific task.
 
-Save this script with any file name you would like. This script gets executed to start the process. Below is a sample way to do so if the script were named **test_settings_script.txt**
+Save this script with any file name you would like. This script gets executed to start the process. Below is a sample way to do so if the script were named **test_settings_script.sh**
 
 ```bash
-bash test_settings_script.txt
+bash test_settings_script.sh
 ```
 
 ### Sample settings file
 
-To use replace 'sub-fake01' with the actual subjectID & replace 'ses-fake01' with the actual session identifier.
-After running the intial steps to obtain the necessary input files.
+To use replace each placeholder with the actual path to your data or the actual subject and session identifier.
 
 ```bash
 path_to_sct_repo=/projects/standard/miran045/shared/code/internal/pipelines/simnibs_cifti_tools/wip_k_branch/simnibs_cifti_tools
@@ -219,7 +218,7 @@ ${path_to_sct_repo}/preprocessing/settings_file_reader.sh \
 --OUTPUT_FOLDER /full_path/desried_simulations_output_location \
 --P_SCT_REPO ${path_to_sct_repo} \
 --work_location /full_path/desired_work_location/sub-fake01 \
---brain_target dlpfc \
+--brain_target all \
 --threshold 99.5 \
 --P_F_dlabel /full_path/data/TemplateMatching/sub-fake01/sub-fake01_ses-fake01_task-restMENORDICrmnoisevols_space-fsLR_den-91k_desc-denoised_bold_spatially_interpolated_template_matched_Zscored_scanthresh3_recolored.dlabel.nii \
 --P_A_dlabel /full_path/input_data/sub-fake01/fake01.aparc.32k_fs_LR.dlabel.nii \
@@ -240,18 +239,7 @@ ${path_to_sct_repo}/preprocessing/settings_file_reader.sh \
 --P_R_pial_atlas /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_R_pial.surf.gii \
 --P_L_white_atlas /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_L_white.surf.gii \
 --P_R_white_atlas /full_path/input_data/sub-fake01/sub-fake01_ses-fake01_run-01_space-fsLR_den-32k_R_white.surf.gii \
---brain_target_2 Somato-cognitive-action_net \
 --scan_islands 1 \
---coil_name 'Magstim_70mm_Fig8.ccd';
+--coil_name 'Magstim_70mm_Fig8.ccd' \
+--find_the_best_by percent_target_covered;
 ```
-
-## Key flags Old
-
-| Flag                | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| `--subject`         | Subject ID used throughout the FEM pipeline.                                |
-| `--subject_dir`     | Path to subject directory containing FreeSurfer outputs.                    |
-| `--output_dir`      | Directory where all FEM and optimization results are written.               |
-| `--simnibs_container` | Path to the SimNIBS v3 Singularity container (`.sif`).                    |
-| `--simnibs_version` | SimNIBS version string (e.g., `3`).                                        |
-| `--coil_name`       | Coil name (must match an existing SimNIBS coil).  
