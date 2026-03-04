@@ -11,7 +11,9 @@ The mandatory input files include a T1, T2, inflated, the Native 32k resolution 
 In order for this tool to run each of the required arguments need to be supplied. These are shown in the below tables.
 These arguments need to be supplied after each other and after pointing to the main script. For example
 ```bash
-path_to_sct_repo/preprocessing/settings_file_reader.sh --P_T1w full_path/T1w.nii.gz --brain_target dlpfc ...
+path_to_sct_repo/preprocessing/settings_file_reader.sh \
+  --P_T1w full_path/T1w.nii.gz \
+  --brain_target dlpfc ...
 ```
 
 ### Optimization Settings
@@ -20,19 +22,23 @@ The mandatory optimization settings include the desired brain target, threshold,
 
 | Category | Argument | Options |
 | -------- | ------- | ------- |
-| Brain target | --brain_target | all, dlpfc, or any combination of functional brain networks as a comma separated list |
+| Brain target | --brain_target | all, dlpfc, or any combination of functional brain networks as a comma separated list without spaces |
 | Threshold | --threshold | any percentage greater than 0 and less than 100. i.e. 99.5 |
 
 List of incorporated functional networks acceptable as `--brain_target` as used in this pipeline:
 
 ```text
-Auditory_net, Cingulo-Opercular_net, Default_Mode_net, Dorsal_Attention_net, Frontoparietal_net, Medial_Temporal_Lobe_net, Parietal_Medial_net, Parieto-Occipital_net, Salience, Sensorimotor_Lateral_net, Sensorimotor_Medial_net, Temporal_Pole_net, Ventral_Attention_net, Visual_net, Somato-cognitive-action_net
+Auditory_net, Cingulo-Opercular_net, Default_Mode_net, 
+Dorsal_Attention_net, Frontoparietal_net, Medial_Temporal_Lobe_net, 
+Parietal_Medial_net, Parieto-Occipital_net, Salience, 
+Sensorimotor_Lateral_net, Sensorimotor_Medial_net, Temporal_Pole_net, 
+Ventral_Attention_net, Visual_net, Somato-cognitive-action_net
 ```
 
 ### Neuroimaging File Paths
 
 Full paths to the following files are needed and should be supplied after the provided argument.
-**To note the aparc_aseg is not currently being used yet is still mandatory at this time. This file was used to define the left dlpfc using the subjects anatomical regions yet we found results were unstable. We now use an inclusion/exclusion table based on grayordinate index.**
+**To note: the aparc_aseg is not currently being used yet is still mandatory at this time. This file was used to define the left dlpfc using the subjects anatomical regions yet we found results were unstable. We now use an inclusion/exclusion table based on grayordinate index.**
 
 | File | Argument | Sample |
 | -------- | ------- | ------- |
@@ -70,7 +76,7 @@ The provided subject labels are used to determine output locations as well as to
 
 ### Note regarding intermediary outputs
 
-The intermediary simulations are stored at the location specified during the --OUTPUT_FOLDER argument nested by subject ID and Visit like `output_folder/subjid/session`. By default this is set to start from the current working directory when the `settings_file_reader.sh` script gets executed. It is recommended to set this to a place that stays the same between simulations for the same subject and session to speed up the process.
+The intermediary simulations are stored at the location specified during the `--OUTPUT_FOLDER` argument nested by subject ID and Visit like `output_folder/subjid/session`. By default this is set to start from the current working directory when the `settings_file_reader.sh` script gets executed. It is recommended to set this to a place that stays the same between simulations for the same subject and session to speed up the process.
 Example: `--OUTPUT_FOLDER /scratch.global/baron063/simulation_outputs --SID fake01 --VISIT ses-1`
 Example root simulation path: `/scratch.global/baron063/simulation_outputs/fake01/ses-1/`
 
