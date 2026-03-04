@@ -1,11 +1,16 @@
 site_name: Simnibs Cifti Tools 
+
 theme: 
-  name: material
+  name: readthedocs
   features:
+    - toc.integrate
+    - navigation.expand
+    - toc.follow
+    - navigation.sections
+    - header.autohide
+    - content.code.annotate
     # - navigation.tabs       # Adds top-level navigation tabs
-    - navigation.sections   # Group navigation into sections
     - content.code.copy     # Adds a copy button to code blocks
-    # - navigation.expand     # Optional: Keeps the sidebar sections expanded by default
 
 plugins:
   - search
@@ -43,6 +48,8 @@ nav:
   - Tutorials: default_example.md
   - Troubleshooting: troubleshooting.md
   - Contributors: contributors.md
+  - THANK YOU FOR USING SCT:
+      - _____: blank.md
 
   # - Required Imaging Files: dependancies.md
   # - Usage: useage.md
