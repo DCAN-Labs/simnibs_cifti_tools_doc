@@ -6,9 +6,11 @@ There are several features in the Simnibs Cifti Tools GitHub repository that are
 
 Script location: `simnibs_cifti_tools/preprocessing/resample_native_surfaces.sh`
 Inputs:
+The below inputs are positional paths.
+Usage: `resample_native_surfaces.sh <path_fMRIprep_surfaces> <path_template_files>`
 
 * Needs the path to where the fMRIprep surfaces are
-* Also needs this file *hemi-{L,R}_space-fsLR_desc-msmsulc_sphere.surf.gii to be at the same path pointed to
+  * Also needs this file *hemi-{L,R}_space-fsLR_desc-msmsulc_sphere.surf.gii to be at the same path pointed to
 * Path to the Template files directory. Can be downloaded from [templateflow/tpl-fsLR](https://github.com/templateflow/tpl-fsLR)
 
 Outputs: to the same path
@@ -19,13 +21,16 @@ Outputs: to the same path
 Example:
 
 ```bash
-/projects/standard/miran045/shared/code/internal/pipelines/simnibs_cifti_tools/production_branch/simnibs_cifti_tools/preprocessing/resample_native_surfaces.sh /scratch.global/baron063/shared/recode/testing /projects/standard/miran045/shared/code/external/templateflow/tpl-fsLR
+/projects/standard/miran045/shared/code/internal/pipelines/simnibs_cifti_tools/production_branch/simnibs_cifti_tools/preprocessing/resample_native_surfaces.sh \
+  /scratch.global/baron063/shared/recode/testing \
+  /projects/standard/miran045/shared/code/external/templateflow/tpl-fsLR
 ```
 
 ## Convert annot files (aparc dlabel.nii generation)
 
 Script location: `simnibs_cifti_tools/preprocessing/make_annot_dlabel.sh`
 Inputs:
+Usage: `make_annot_dlabel.sh <ids> <output_dir> <s3_bucket_freesurfer> <session>`
 
 * ids #Everything after sub-
 * output_dir #Recommended place is where the other fmriprep_anat_derivitives_dir is
@@ -40,7 +45,11 @@ Outputs:
 Example:
 
 ```bash
-/projects/standard/miran045/shared/code/internal/pipelines/simnibs_cifti_tools/production_branch/simnibs_cifti_tools/preprocessing/make_annot_dlabel.sh TCBXX /scratch.global/baron063/shared/recode/testing s3://recode-rawdata/derivatives/fmriprep/sub-TCBXX/sourcedata/freesurfer/sub-TCBXX/ ses-Y
+/projects/standard/miran045/shared/code/internal/pipelines/simnibs_cifti_tools/production_branch/simnibs_cifti_tools/preprocessing/make_annot_dlabel.sh \
+  TCBXX \
+  /scratch.global/baron063/shared/recode/testing \
+  s3://recode-rawdata/derivatives/fmriprep/sub-TCBXX/sourcedata/freesurfer/sub-TCBXX/ \
+  ses-Y
 ```
 
 ## Aux Tools
