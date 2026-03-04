@@ -2,65 +2,20 @@
 
 This guide is organized into a full arguments table as well as sections that break this down based on required, targeting options, and hardware configuration. Next we have included documentation regarding available options for TMS coil selection for simulations. Finally we have included documentation about settings file setup with a sample settings file script.
 
-## Full Arguments Table
+## Flag argument pairings
 
-| Flag                | Description            | Default setting if applicable                                             |
-|--------------------- |----------------------------------- | ---------------------------------------- |
-| `--SID`         | Subject ID.                                |      |
-| `--VISIT`     | Session identifier.                    |    |
-| `--simnibs_container` | Path to the SimNIBS v3 Singularity container (`.sif`).  | /projects/standard/miran045/shared/code/external/containers/simnibs/sing_test_simnibs_alone_debian.sif |
-| `--simnibs_version` | SimNIBS version string (e.g., `3`).     |  3 |
-| `--OUTPUT_FOLDER` | Root Output directory for Simnibs simulations | $(pwd) |
-| `--P_SCT_REPO` | Path to where Simnibs Cifti Tools repository is cloned. |   |
-| `--brain_target`       | Specify how you would like optimal targeting to be performed. |  |
-| **Available options:**     |   *all, dlpfc, Salience, any combination of functional brain networks as a comma separated list*                       |  |
-| `--user_provided_table`       | Specify a full path to a csv table that included index and another column to sort as inclusion/exclusion.          |  |
-| `--user_inclusion_column`       | Specify the column in the user_provided_table to filter by. The rows in that column need to either be 0/1 or exclude/include.      |  |
-| `--hemi_list`       | Specify the hemispheres of interest. | L,R |
-| **Available options:**     |   *L,R*                       | |
-| `--lobe_list`       | Specify the lobes of interest.        | Cingulate,Frontal,Insula,Occipital,Parietal,Temporal |
-| **Available options:**     |   *Cingulate, Frontal, Insula, Occipital, Parietal, Temporal, any combination of these as a comma separated list*                       |
-| `--hemisphere_lobe_mask`       | Specify how you would like optimal targeting to be performed.   | 0 |
-| **Available options:**     |   *"L_Cingulate, L_Frontal, L_Insula, L_Occipital, L_Parietal, L_Temporal, R_Cingulate, R_Frontal, R_Insula, R_Occipital, R_Parietal, R_Temporal*  | |
-| **Options continued:**    |   *any combination of the above as a comma separated list as well as 0 or 1*             |  |
-| `--threshold`       | Specify which threshold you would like to calculate the optimal targeting solution to be set to   | 99.5 |
-| `--coil_name`       | Coil name (must match an existing SimNIBS coil).  | Magstim_70mm_Fig8.ccd |
-| `--P_L_mdthk_atlas`       | Specify a full path to the left midthickness surface file in atlas space | |
-| `--P_R_mdthk_atlas`       | Specify a full path to the right midthickness surface file in atlas space                  |  |
-| `--P_L_mdthk_native`       | Specify a full path to the left midthickness surface file in native space                  |  |
-| `--P_R_mdthk_native`       | Specify a full path to the right midthickness surface file in native space                  |  |
-| `--P_L_pial_atlas`       | Specify a full path to the left pial surface file in atlas space                  |  |
-| `--P_R_pial_atlas`       | Specify a full path to the right pial surface file in atlas space                  |  |
-| `--P_L_pial_native`       | Specify a full path to the left pial surface file in native space                  |  |
-| `--P_R_pial_native`       | Specify a full path to the right pial surface file in native space                  |  |
-| `--P_L_white_atlas`       | Specify a full path to the left white surface file in atlas space                  |  |
-| `--P_R_white_atlas`       | Specify a full path to the right white surface file in atlas space                  |  |
-| `--P_L_white_native`       | Specify a full path to the left white surface file in native space                  |  |
-| `--P_R_white_native`       | Specify a full path to the right white surface file in native space                  |  |
-| `--P_L_inflated`       | Specify a full path to a left inflated surface file in 32k resolution                  |  |
-| `--P_R_inflated`       | Specify a full path to a right inflated surface file in 32k resolution                  |  |
-| `--P_T1w`       | Specify a full path to the T1w file                  |  |
-| `--P_T2w`       | Specify a full path to the T2w file                  |  |
-| `--P_F_dlabel`       | Specify a full path to the functional dlabel file in 32k resolution.      |  |
-| `--P_A_dlabel`       | Specify a full path to the aparc aseg dlabel file in 32k resolution  |  |
-| `--P_A_dlabel_2009`       | Specify a full path to the aparc aseg a2009s dlabel file  |  |
-| `--brain_target_2`       | Specify which additional functional brain target you would like simulated.  |  |
-| `--find_the_best_by`       | Specify how to optimize the target. | relative_energy_in_target |
-| **Available options:**   |   *cummulative_energy_within_target, percent_target_covered, relative_energy_in_target, relative_energy_off_target, relative_area_in_target, relative_area_off_target*                       | |
-| `--scan_islands`       | Enter a 1 if you'd like to use this additional processing step | 0 |
-| `--dry_run`       | Include this argument if you would like to see how your settings would run without actual execution or sending off jobs.  |  |
-| `--help`   |    Display the help message                       |  |
+For the purpose of this documentation a flag is anything that starts with a `--` and the argument is what the user provides after the flag. For all flags it is assumed the argument is provided a space after the flag. For instance `--SID fake-001` would tell the pipeline that the subject identifier is `fake-001` while `--VISIT fake-001` would tell the pipeline that the session identifier is `fake-001`.
 
 ### Required Arguments
 
-This section contains the **minimum** required arguments necessary to run the tool with default settings for all other arguments. This tool will fail to execute if any of these are missing.
+This section contains the **minimum** required flag argument pairings necessary to run the tool with default settings for all other arguments. This tool will fail to execute if any of these are missing.
 
 #### Session Metadata
 
-| Argument | Input | Description |
+| Flag | Input | Description |
 | -------- | ------- | ------- |
 | `--SID` | `String` | Unique Subject ID |
-| `--VISIT` | `String` | Session/Visist identifier |
+| `--VISIT` | `String` | Session/Visit identifier |
 | `--P_SCT_REPO` | `Path` | Full path to the `Simnibs Cifti Tools` repository |
 | `--brain_target` | `String` | Primary functional target (e.q., `dlpfc`) |
 
@@ -75,13 +30,78 @@ This section contains the **minimum** required arguments necessary to run the to
 
 #### Volumetric & Label Files
 
-| Argument | Type | Description |
+| Flag | Type | Description |
 | -------- | ------- | ------- |
 | `--P_T1w` | `.nii.gz` | T1-weighted structural image. |
 | `--P_T2w` | `.nii.gz` | T2-weighted structural image. |
 | `--P_F_dlabel` | `.dlabel.nii` | Functional connectivity/parcellation labels. |
 | `--P_A_dlabel` | `.dlabel.nii` | `aparc.aseg` labels (32k resolution). |
 | `--P_A_dlabel_2009` | `.dlabel.nii` | `aparc.aseg.a2009s` labels (32k resolution). |
+
+### Optional Arguments
+
+This section contains the arguments that have default settings. This section has a variety of customization settings.
+
+#### Workflow & Environment Settings
+
+These flags control where the tool runs and how it handles files. They are typically set once per environment or project.
+
+| Flag | Description | Default |
+| -------- | ------- | ------- |
+| `--OUTPUT_FOLDER` | Root directory for SimNIBS output. | `$(pwd)` |
+| `--simnibs_container` | Path to the `.sif` Singularity container. | `/projects/standard/miran045/shared/code/external/containers/simnibs/sing_test_simnibs_alone_debian.sif` |
+| `--simnibs_version` | Version string for SimNIBS | `3` |
+| `--dry_run` | Validate settings and paths without executing or submitting jobs. | - |
+
+**Note for dry_run**: *This flag doesn't require a follow up argument. When you inlude this flag simply move on to the next flag argument pairing.*
+
+#### Search Space & ROI Filtering
+
+| Flag | Description | Default |
+| -------- | ------- | ------- |
+| `--hemi_list` | Hemispheres to include. | `L,R` |
+| | **Options**: `L`,`R` | |
+| `--lobe_list` | Lobes to include. | `Cingulate,Frontal,Insula,Occipital,Parietal,Temporal` |
+| | **Options**: `Cingulate`,`Frontal`, `Insula`, `Occipital`, `Parietal`, `Temporal` | |
+| `--hemisphere_lobe_mask` | Specific combinations (e.g., `L_Frontal,R_Frontal`). | `0` |
+| | **Options**: Any combination of hemi_lobe or `0/1` | |
+| `--user_provided_table` | Path to a CSV for custom subject inclusion/exclusion. | - |
+| `--user_inclusion_column` | The CSV column name to filter by (accepts `0/1` or `exclude/include`). | - |
+
+**Note for user_provided_table**: *The provided table is assumed to include a column titled `index` as well as another column specified with the `--user_inclusion_column` flag which has `include/exclude` or `0/1` for each grayordinate index.*
+
+#### Simulation & Optimization Logic
+
+These flags change the **physics** of the search, how the coil behaves and what **optimal** actually means mathematically.
+
+| Flag | Description | Default |
+| -------- | ------- | ------- |
+| `--find_the_best_by` | The metric used to rank target locations. | `relative_energy_in_target` |
+| | **Options**: `cummulative_energy_within_target`,`percent_target_covered`, `relative_energy_in_target`, `relative_energy_off_target`, `relative_area_in_target`, `relative_area_off_target` | |
+| `--brain_target_2` | Specify a second functional target to simulate simultaneously. | - |
+| `--threshold` | The E-field percentile threshold for calculating the target solution. | `99.5` |
+| `--coil_name` | The coil model (must match SimNIBS `.ccd` files). | `Magstim_70mm_Fig8.ccd` |
+| `--scan_islands` | Use `1` to enable additional post-processing for disconnected target *islands*. | `0` |
+
+##### Optimization Strategy Guide
+
+The `--find_the_best_by` argument determines the mathematical *winner* among thousands of potential coil positions. Choose the metric that best aligns with your clinical or research objective:
+
+| Goal | Use this metric | Description |
+| -------- | ------- | ------- |
+| **Maximize Intensity** | `relative_energy_in_target` | **Recommended Default**. Prioritizes the strongest E-field concentration within the ROI. |
+| **Broaden Stimulation** | `percent_target_covered` | Best for large ROIs where you want the E-field to touch as much of the area as possible. |
+| **Ensure Precision** | `relative_energy_off_target` | Minimizes spillover. Ideal if you have a neighboring sensitive area you must avoid. |
+| **Maximize Total Dose** | `cummulative_energy_within_target` | Ranks positions by the total sum of energy delivered to the target volume. |
+| **Optimize Spot Size** | `relative_area_in_target` | Focuses on the physical surface area size of the hotspot within your target. |
+
+#### Optional Atlas Surface Paths
+
+| Anatomical Surface | Left Hemisphere | Right Hemisphere |
+| -------- | ------- | ------- |
+| **Midthickness** | `--P_L_mdthk_atlas` | `--P_R_mdthk_atlas` |
+| **Pial** | `--P_L_pial_atlas` | `--P_R_pial_atlas` |
+| **White Matter** | `--P_L_white_atlas` | `--P_R_white_atlas` |
 
 ### Targeting Options
 
@@ -243,3 +263,52 @@ ${path_to_sct_repo}/preprocessing/settings_file_reader.sh \
 --coil_name 'Magstim_70mm_Fig8.ccd' \
 --find_the_best_by percent_target_covered;
 ```
+
+## Full flag available flags table
+
+| Flag                | Description            | Default setting if applicable                                             |
+|--------------------- |----------------------------------- | ---------------------------------------- |
+| `--SID`         | Subject ID.                                |      |
+| `--VISIT`     | Session identifier.                    |    |
+| `--simnibs_container` | Path to the SimNIBS v3 Singularity container (`.sif`).  | /projects/standard/miran045/shared/code/external/containers/simnibs/sing_test_simnibs_alone_debian.sif |
+| `--simnibs_version` | SimNIBS version string (e.g., `3`).     |  3 |
+| `--OUTPUT_FOLDER` | Root Output directory for Simnibs simulations | $(pwd) |
+| `--P_SCT_REPO` | Path to where Simnibs Cifti Tools repository is cloned. |   |
+| `--brain_target`       | Specify how you would like optimal targeting to be performed. |  |
+| **Available options:**     |   *all, dlpfc, Salience, any combination of functional brain networks as a comma separated list*                       |  |
+| `--user_provided_table`       | Specify a full path to a csv table that included index and another column to sort as inclusion/exclusion.          |  |
+| `--user_inclusion_column`       | Specify the column in the user_provided_table to filter by. The rows in that column need to either be 0/1 or exclude/include.      |  |
+| `--hemi_list`       | Specify the hemispheres of interest. | L,R |
+| **Available options:**     |   *L,R*                       | |
+| `--lobe_list`       | Specify the lobes of interest.        | Cingulate,Frontal,Insula,Occipital,Parietal,Temporal |
+| **Available options:**     |   *Cingulate, Frontal, Insula, Occipital, Parietal, Temporal, any combination of these as a comma separated list*                       |
+| `--hemisphere_lobe_mask`       | Specify how you would like optimal targeting to be performed.   | 0 |
+| **Available options:**     |   *"L_Cingulate, L_Frontal, L_Insula, L_Occipital, L_Parietal, L_Temporal, R_Cingulate, R_Frontal, R_Insula, R_Occipital, R_Parietal, R_Temporal*  | |
+| **Options continued:**    |   *any combination of the above as a comma separated list as well as 0 or 1*             |  |
+| `--threshold`       | Specify which threshold you would like to calculate the optimal targeting solution to be set to   | 99.5 |
+| `--coil_name`       | Coil name (must match an existing SimNIBS coil).  | Magstim_70mm_Fig8.ccd |
+| `--P_L_mdthk_atlas`       | Specify a full path to the left midthickness surface file in atlas space | |
+| `--P_R_mdthk_atlas`       | Specify a full path to the right midthickness surface file in atlas space                  |  |
+| `--P_L_mdthk_native`       | Specify a full path to the left midthickness surface file in native space                  |  |
+| `--P_R_mdthk_native`       | Specify a full path to the right midthickness surface file in native space                  |  |
+| `--P_L_pial_atlas`       | Specify a full path to the left pial surface file in atlas space                  |  |
+| `--P_R_pial_atlas`       | Specify a full path to the right pial surface file in atlas space                  |  |
+| `--P_L_pial_native`       | Specify a full path to the left pial surface file in native space                  |  |
+| `--P_R_pial_native`       | Specify a full path to the right pial surface file in native space                  |  |
+| `--P_L_white_atlas`       | Specify a full path to the left white surface file in atlas space                  |  |
+| `--P_R_white_atlas`       | Specify a full path to the right white surface file in atlas space                  |  |
+| `--P_L_white_native`       | Specify a full path to the left white surface file in native space                  |  |
+| `--P_R_white_native`       | Specify a full path to the right white surface file in native space                  |  |
+| `--P_L_inflated`       | Specify a full path to a left inflated surface file in 32k resolution                  |  |
+| `--P_R_inflated`       | Specify a full path to a right inflated surface file in 32k resolution                  |  |
+| `--P_T1w`       | Specify a full path to the T1w file                  |  |
+| `--P_T2w`       | Specify a full path to the T2w file                  |  |
+| `--P_F_dlabel`       | Specify a full path to the functional dlabel file in 32k resolution.      |  |
+| `--P_A_dlabel`       | Specify a full path to the aparc aseg dlabel file in 32k resolution  |  |
+| `--P_A_dlabel_2009`       | Specify a full path to the aparc aseg a2009s dlabel file  |  |
+| `--brain_target_2`       | Specify which additional functional brain target you would like simulated.  |  |
+| `--find_the_best_by`       | Specify how to optimize the target. | relative_energy_in_target |
+| **Available options:**   |   *cummulative_energy_within_target, percent_target_covered, relative_energy_in_target, relative_energy_off_target, relative_area_in_target, relative_area_off_target*                       | |
+| `--scan_islands`       | Enter a 1 if you'd like to use this additional processing step | 0 |
+| `--dry_run`       | Include this argument if you would like to see how your settings would run without actual execution or sending off jobs.  |  |
+| `--help`   |    Display the help message                       |  |
