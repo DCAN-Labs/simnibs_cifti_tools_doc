@@ -46,6 +46,7 @@ nav:
   - Outputs: outputs.md
   - Modularized Tools: Utilities.md 
   - Tutorials: default_example.md
+  - Processing Guides: sample_usage.md
   - Troubleshooting: troubleshooting.md
   - Contributors: contributors.md
   - THANK YOU FOR USING SCT:
